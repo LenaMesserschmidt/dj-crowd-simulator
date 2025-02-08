@@ -52,6 +52,10 @@ h1 {
   filter: drop-shadow(0 0 2em hwb(0 53% 47% / 0.667));
 }
 
+input {
+  width: 69px;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

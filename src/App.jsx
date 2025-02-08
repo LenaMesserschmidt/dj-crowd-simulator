@@ -19,27 +19,22 @@ const partyLevel = [
 function App() {
   const [currentLevel, setCurrentLevel] = useState(0);
   const [timeStep, setTimeStep] = useState(5);
+  const [probabilityThreshold, setProbabilityThreshold] = useState(0.5);
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       let number = Math.random();
-      if (number < 0.5 && currentLevel < 11) {
+      if (number < probabilityThreshold && currentLevel < 11) {
         setCurrentLevel(currentLevel + 1);
-      } else if (number >= 0.5 && currentLevel > 0) {
+      } else if (number >= probabilityThreshold && currentLevel > 0) {
         setCurrentLevel(currentLevel - 1);
-      } else {
-        if (currentLevel == 11) {
-          setCurrentLevel(10);
-        } else {
-          setCurrentLevel(1);
-        }
       }
     }, timeStep * 1000 * 60);
 
     //Clearing the interval
     return () => clearInterval(interval);
-  }, [currentLevel, timeStep]);
+  }, [currentLevel, timeStep, probabilityThreshold]);
 
   const openSettings = () => {
     setSettingsOpen(true);
@@ -54,6 +49,7 @@ function App() {
     const formJson = Object.fromEntries(formData.entries());
 
     setTimeStep(formJson.timeStep);
+    setProbabilityThreshold(formJson.probabilityThreshold);
     setSettingsOpen(false);
   };
 
@@ -79,10 +75,20 @@ function App() {
               defaultValue={timeStep}
             />
           </label>
+          <div></div>
+          <label>
+            Upwards Probability:{" "}
+            <input
+              type="number"
+              name="probabilityThreshold"
+              min="0"
+              max="1"
+              step={0.01}
+              defaultValue={probabilityThreshold}
+            />
+          </label>
           <hr />
-          <button type="submit" className="logo">
-            OK!
-          </button>
+          <button type="submit">OK!</button>
         </form>
       </div>
       <div></div>
