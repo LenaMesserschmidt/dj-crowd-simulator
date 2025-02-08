@@ -1,21 +1,55 @@
+html,
+body,
+#app,
+#app > div {
+  height: 100%;
+}
+
 #root {
+  height: 100%;
+  width: 100%;
+}
+
+.text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+h1 {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
+.settings-button {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+}
+
+.hidden {
+  display: none;
+}
+
+.settings-container {
+  position: absolute;
+  top: 45px;
+  left: 45px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 20px;
+  text-align: end;
+}
+
 .logo {
-  height: 6em;
-  padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em hwb(0 53% 47% / 0.667));
 }
 
 @keyframes logo-spin {

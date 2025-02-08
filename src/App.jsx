@@ -18,6 +18,8 @@ const partyLevel = [
 
 function App() {
   const [currentLevel, setCurrentLevel] = useState(0);
+  const [timeStep, setTimeStep] = useState(5);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,15 +35,58 @@ function App() {
           setCurrentLevel(1);
         }
       }
-    }, 300000);
+    }, timeStep * 1000 * 60);
 
     //Clearing the interval
     return () => clearInterval(interval);
-  }, [currentLevel]);
+  }, [currentLevel, timeStep]);
+
+  const openSettings = () => {
+    setSettingsOpen(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const formJson = Object.fromEntries(formData.entries());
+
+    setTimeStep(formJson.timeStep);
+    setSettingsOpen(false);
+  };
+
+  var settingsClassName = settingsOpen
+    ? "settings-container card"
+    : "settings-container hidden";
 
   return (
     <>
-      <div>
+      <div className="settings-button">
+        <button className="logo" onClick={openSettings}>
+          Settings
+        </button>
+      </div>
+      <div className={settingsClassName}>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Time interval (min):{" "}
+            <input
+              type="number"
+              name="timeStep"
+              min="1"
+              defaultValue={timeStep}
+            />
+          </label>
+          <hr />
+          <button type="submit" className="logo">
+            OK!
+          </button>
+        </form>
+      </div>
+      <div></div>
+      <div className="text-container">
         <h1>{partyLevel[currentLevel]}</h1>
       </div>
     </>
