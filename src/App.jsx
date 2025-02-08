@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import settingsIcon from "./assets/icons8-einstellungen.svg";
 import "./App.css";
 
 const partyLevel = [
@@ -60,9 +61,12 @@ function App() {
   return (
     <>
       <div className="settings-button">
-        <button className="logo" onClick={openSettings}>
-          Settings
-        </button>
+        <img
+          src={settingsIcon}
+          className="logo"
+          alt="Settings"
+          onClick={openSettings}
+        />
       </div>
       <div className={settingsClassName}>
         <form onSubmit={handleSubmit}>
@@ -77,7 +81,7 @@ function App() {
           </label>
           <div></div>
           <label>
-            Upwards Probability:{" "}
+            Upwards probability:{" "}
             <input
               type="number"
               name="probabilityThreshold"
